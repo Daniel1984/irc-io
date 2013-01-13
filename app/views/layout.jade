@@ -1,0 +1,15 @@
+doctype 5
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="/socket.io/socket.io.js")
+    script(data-main="main", src="javascripts/require.js")
+  body
+    block content
+    script
+      var io = io.connect();
+      io.emit('ready');
+      io.on('talk', function(data) {
+        alert(data.message)
+      })
