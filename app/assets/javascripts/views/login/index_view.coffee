@@ -1,0 +1,14 @@
+define [
+  'backbone'
+  'text!templates/login/index.html'
+  ], (Backbone, Template) ->
+    
+    class IndexView extends Backbone.View
+      className: 'container'
+        
+      initialize: (options) ->
+        @template = _.template(Template)
+        
+      render: =>
+        @$el.html(@template)
+        @

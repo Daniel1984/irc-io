@@ -15,8 +15,14 @@ app.configure () ->
   app.use express.static("#{__dirname}/public", {maxAge: 5000})
   app.use(express.favicon())
   app.use(express.logger('dev'))
-  app.use(require('less-middleware')({ src: __dirname + '/public' }))
-  app.use(express.static(path.join(__dirname, 'public')))
+  # app.use(require('less-middleware')({ src: __dirname + '/public' }))
+  app.use(require('connect-less')(
+    src: "#{__dirname}/app/assets"
+    dst: "#{__dirname}/tmp/cache/less"
+    force: true
+    compress: true
+  ))
+  app.use(express.static("#{__dirname}/tmp/cache/less"))
   app.use(app.router)
   
 app.configure 'development', () ->

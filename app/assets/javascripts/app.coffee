@@ -2,8 +2,10 @@ define [
   'jquery'
   'underscore'
   'backbone'
+  'views/site/page_view'
   'bootstrap'
-  ], ($, _, Backbone) ->
+  ], ($, _, Backbone, PageView) ->
     init: ->
-      $('body').html("<h1>BU-FU</h1>")
+      pageView = new PageView()
+      $('body').append(pageView.render().el)
 

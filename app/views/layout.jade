@@ -1,15 +1,21 @@
 doctype 5
 html
   head
+    meta(charset='utf-8')
+    meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+    meta(name="viewport", content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+    meta(name="apple-mobile-web-app-capable", content="yes")
+    meta(name="apple-mobile-web-app-status-bar-style", content="black")
+    meta(name="apple-touch-fullscreen", content="yes")
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/main.css')
     script(src="/socket.io/socket.io.js")
     script(data-main="main", src="javascripts/require.js")
   body
     block content
-    script
-      var io = io.connect();
-      io.emit('ready');
-      io.on('talk', function(data) {
-        alert(data.message)
-      })
+    //- script
+    //-   var io = io.connect();
+    //-   io.emit('ready');
+    //-   io.on('talk', function(data) {
+    //-     alert(data.message)
+    //-   })
