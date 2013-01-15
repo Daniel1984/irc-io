@@ -15,5 +15,9 @@
     "connect-assets": "~2.3.3",
     "connect-assets-jspaths": "0.0.9",
     "connect-less": "~0.3.1"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
   }
 }
