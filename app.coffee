@@ -8,6 +8,10 @@ app.http().io()
 appPath = "#{process.cwd()}/app"
 
 app.configure () ->
+  app.set("transports", ["xhr-polling"])
+  app.set("polling duration", 10)
+
+app.configure () ->
   app.set 'views', "#{appPath}/views"
   app.set 'view engine', 'jade'
   app.use express.bodyParser()
