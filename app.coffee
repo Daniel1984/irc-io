@@ -10,8 +10,6 @@ appPath = "#{process.cwd()}/app"
 app.configure () ->
   app.set("transports", ["xhr-polling"])
   app.set("polling duration", 10)
-
-app.configure () ->
   app.set 'views', "#{appPath}/views"
   app.set 'view engine', 'jade'
   app.use express.bodyParser()
@@ -28,6 +26,10 @@ app.configure () ->
   ))
   app.use(express.static("#{__dirname}/tmp/cache/less"))
   app.use(app.router)
+
+
+app.io.on 'connection', (socket) ->
+  console.log 'conected', socket
   
 app.configure 'development', () ->
   app.use(express.errorHandler())
