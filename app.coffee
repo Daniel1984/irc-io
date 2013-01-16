@@ -29,7 +29,7 @@ app.configure () ->
 
 
 app.io.on 'connection', (socket) ->
-  console.log 'conected', socket
+  console.log 'conected'
   
 app.configure 'development', () ->
   app.use(express.errorHandler())
