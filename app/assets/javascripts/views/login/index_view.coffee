@@ -10,7 +10,6 @@ define [
         
       initialize: (options) ->
         @template = _.template(Template)
-        io.on 'talk', @onTalk
         
       render: =>
         @$el.html(@template)
@@ -18,7 +17,8 @@ define [
         
       join: (e) =>
         e.preventDefault()
-        io.emit('ready')
+        nickname = @$el.find('.nickname').val()
+        io.emit('join:chat', nickname)
         
-      onTalk: (data) =>
-        console.log data.message
+      leave: =>
+        @remove()

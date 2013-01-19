@@ -11,9 +11,6 @@
     "less-middleware": "*",
     "socket.io": "~0.9.13",
     "coffee-script": "~1.4.0",
-    "express.io": "~1.1.6",
-    "connect-assets": "~2.3.3",
-    "connect-assets-jspaths": "0.0.9",
     "connect-less": "~0.3.1"
   },
   "engines": {
