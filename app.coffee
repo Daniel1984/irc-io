@@ -1,7 +1,7 @@
 fs = require 'fs'
 coffee = require 'coffee-script'
-express = require "express"
-path = require "path"
+express = require 'express'
+path = require 'path'
 
 app = express()
 http = require('http')
@@ -12,13 +12,12 @@ appPath = "#{process.cwd()}/app"
 
 require("#{__dirname}/app-io")(io)
 
-app.configure () ->
+app.configure ->
   app.set 'views', "#{appPath}/views"
   app.set 'view engine', 'jade'
   app.use express.bodyParser()
   app.use express.methodOverride()
   app.use express.static("#{__dirname}/public", {maxAge: 5000})
-  app.use(express.favicon())
   app.use(express.logger('dev'))
   app.use(require('connect-less')(
     src: "#{__dirname}/app/assets"
@@ -29,7 +28,7 @@ app.configure () ->
   app.use(express.static("#{__dirname}/tmp/cache/less"))
   app.use(app.router)
   
-app.configure 'development', () ->
+app.configure 'development', ->
   app.use(express.errorHandler())
   app.get(/.js$/, (req, res, next) ->
     script = req.originalUrl.substring(1, req.originalUrl.length - 3)
