@@ -1,7 +1,10 @@
 define [
   'backbone'
   'text!templates/chat/index.html'
-  ], (Backbone, Template) ->
+  'text!templates/chat/new_user_join.html'
+  'text!templates/chat/user_msg_body.html'
+  'text!templates/chat/user_left.html'
+  ], (Backbone, Template, NewUserTmp, UsrMsgTpl, UserLeftTpl) ->
     
     class PageView extends Backbone.View
       className: 'chat-view'
@@ -11,7 +14,12 @@ define [
         
       initialize: (options) ->
         @template = _.template(Template)
+        @newUserTpl = _.template(NewUserTmp)
+        @usrMsgTpl = _.template(UsrMsgTpl)
+        @userLeftTpl = _.template(UserLeftTpl)
+        
         io.on 'new:user:joined', @onNewUserJoin
+        io.on 'user:left:chat', @onUserLeave
         io.on 'public:message:from:server', @displayPublicMessage
         
       render: =>
@@ -19,10 +27,13 @@ define [
         @
         
       onNewUserJoin: (data) =>
-        @$el.find('.message-view').append("<p><strong class='nickname-join'>#{data.nickname}:</strong> <strong>just joined the chat!</strong></p>")
+        @$el.find('.message-view').append(@newUserTpl(data))
+          
+      onUserLeave: (data) =>
+        @$el.find('.message-view').append(@userLeftTpl(data))
           
       displayPublicMessage: (data) =>
-        @$el.find('.message-view').append("<p><strong class='nickname-active'>#{data.nickname}:</strong> #{data.message}</p>")
+        @$el.find('.message-view').append(@usrMsgTpl(data))
         
       sendPublicMessage: (e) =>
         if e.keyCode == 13

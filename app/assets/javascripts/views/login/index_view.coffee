@@ -6,7 +6,7 @@ define [
     class IndexView extends Backbone.View
       className: 'container'
       events:
-        "submit": "join"
+        'submit': 'join'
         
       initialize: (options) ->
         @template = _.template(Template)
