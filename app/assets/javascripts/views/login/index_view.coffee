@@ -1,6 +1,7 @@
 define [
   'backbone'
   'text!templates/login/index.html'
+  'button_spinner'
   ], (Backbone, Template) ->
     
     class IndexView extends Backbone.View
@@ -17,6 +18,7 @@ define [
         
       join: (e) =>
         e.preventDefault()
+        @$el.find('.btn-login').buttonSpinner()
         nickname = @$el.find('.nickname').val()
         io.emit('join:chat', nickname)
         

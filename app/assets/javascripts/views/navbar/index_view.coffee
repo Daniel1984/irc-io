@@ -4,7 +4,7 @@ define [
   ], (Backbone, Template) ->
     
     class IndexView extends Backbone.View
-      className: 'container'
+      className: 'navbar navbar-inverse navbar-fixed-top'
       
       initialize: (options) ->
         @template = _.template(Template)

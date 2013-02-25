@@ -4,7 +4,7 @@ define [
   'text!templates/chat/new_user_join.html'
   'text!templates/chat/user_msg_body.html'
   'text!templates/chat/user_left.html'
-  ], (Backbone, Template, NewUserTmp, UsrMsgTpl, UserLeftTpl) ->
+  ], (Backbone, Template, UserJoinTmp, UsrMsgTpl, UserLeftTpl) ->
     
     class PageView extends Backbone.View
       className: 'chat-view'
@@ -13,30 +13,36 @@ define [
         "keydown .message-input": "sendPublicMessage"
         
       initialize: (options) ->
+        @user = options.user
         @template = _.template(Template)
-        @newUserTpl = _.template(NewUserTmp)
+        @userJoinTpl = _.template(UserJoinTmp)
         @usrMsgTpl = _.template(UsrMsgTpl)
         @userLeftTpl = _.template(UserLeftTpl)
         
-        io.on 'new:user:joined', @onNewUserJoin
-        io.on 'user:left:chat', @onUserLeave
-        io.on 'public:message:from:server', @displayPublicMessage
+        io.on 'user:joined', @onUserJoin
+        io.on 'user:left', @onUserLeave
+        io.on 'public:message', @displayPublicMessage
         
       render: =>
-        @$el.html(@template(@user))
+        @$el.html(@template)
+        @chat = @$el.find('.message-view')
+        @chatField = @$el.find('.message')
+        @msgInput = @$el.find('.message-input')
         @
         
-      onNewUserJoin: (data) =>
-        @$el.find('.message-view').append(@newUserTpl(data))
+      onUserJoin: (data) =>
+        @chatField.append(@userJoinTpl(nickname: data.nickname))
           
       onUserLeave: (data) =>
-        @$el.find('.message-view').append(@userLeftTpl(data))
+        @chatField.append(@userLeftTpl(data))
           
       displayPublicMessage: (data) =>
-        @$el.find('.message-view').append(@usrMsgTpl(data))
+        @chatField.append(@usrMsgTpl(data))
+        @chat.animate(scrollTop: @chat.prop('scrollHeight'), 0)
         
       sendPublicMessage: (e) =>
         if e.keyCode == 13
-          message = @$el.find('.message-input').val()
-          io.emit('public:message:from:user', message)
-          @$el.find('.message-input').val('')
+          msg = @msgInput.val()
+          if msg == '' then msg = '...'
+          io.emit('public:message', msg)
+          @msgInput.val('')

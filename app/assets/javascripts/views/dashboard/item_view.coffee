@@ -4,12 +4,13 @@ define [
   ], (Backbone, Template) ->
       
     class ItemView extends Backbone.View
-      className: 'li'
       events:
-        'click': 'showPrivateChat'
+        'click .chat-btn': 'showPrivateChat'
+        'click .video-call-btn': 'showPrivateVideo'
         
       initialize: (options) ->
         @template = _.template(Template)
+        @user = options.user
         
       render: =>
         @$el.html(@template(@model.toJSON()))
@@ -17,4 +18,8 @@ define [
       
       showPrivateChat: (e) =>
         e.preventDefault()
-        console.log 'hello', @model.get('nickname')
+        console.log "to develop"
+        
+      showPrivateVideo: (e) =>
+        e.preventDefault()
+        io.emit('start:video', @model.get('id'))

@@ -5,11 +5,15 @@ define [
   ], (ItemView, Users, Backbone) ->
     
     class ListView extends Backbone.View
-      tagName: 'ul'
+      tagName: 'dl'
+      className: 'dl-horizontal'
         
       initialize: (options) ->
-        @data = options.data
-        @collection = new Users(@data)
+        super(options)
+        @connections = options.connections
+        @user = options.user
+        @users = new Users()
+        @users.reset(@connections)
       
       render: =>
         @$el.html()
@@ -17,8 +21,9 @@ define [
         @
         
       addAll: =>
-        @collection.each(@addOne)
+        @users.each(@addOne)
         
-      addOne: (model) =>
-        @itemView = new ItemView(model: model)
-        @$el.append(@itemView.render().el)
+      addOne: (user) =>
+        unless @user.get('id') == user.get('id')
+          @itemView = new ItemView(model: user, user: @user)
+          @$el.append(@itemView.render().el)

@@ -14,4 +14,8 @@ html
   body
     block content
     script
+      // var loc = window.location.hostname;
+      // var io = io.connect(loc+'/chat');
       var io = io.connect(window.location.hostname);
+      window.URL = window.URL || window.webkitURL;
+      navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
