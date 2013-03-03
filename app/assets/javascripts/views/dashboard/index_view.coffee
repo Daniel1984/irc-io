@@ -9,13 +9,13 @@ define [
         
       initialize: (options) ->
         super(options)
+        @template = _.template(Template)
         @user = options.user
         io.on('user:joined', @updateUserList)
         io.on('user:left', @updateUserList)
         
       render: =>
-        @template = _.template(Template)
-        @$el.html(@template)
+        @$el.html(@template(@user.toJSON()))
         @
         
       updateUserList: (data) =>

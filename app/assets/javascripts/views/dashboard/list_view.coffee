@@ -25,5 +25,5 @@ define [
         
       addOne: (user) =>
         unless @user.get('id') == user.get('id')
-          @itemView = new ItemView(model: user, user: @user)
+          @itemView = new ItemView(model: user)
           @$el.append(@itemView.render().el)

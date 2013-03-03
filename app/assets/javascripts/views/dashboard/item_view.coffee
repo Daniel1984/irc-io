@@ -10,7 +10,6 @@ define [
         
       initialize: (options) ->
         @template = _.template(Template)
-        @user = options.user
         
       render: =>
         @$el.html(@template(@model.toJSON()))
