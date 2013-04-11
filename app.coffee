@@ -1,7 +1,7 @@
 fs = require 'fs'
-coffee = require 'coffee-script'
 express = require 'express'
 path = require 'path'
+lessMiddleware = require 'less-middleware'
 
 app = express()
 http = require('http')
@@ -17,15 +17,13 @@ app.configure ->
   app.set 'view engine', 'jade'
   app.use express.bodyParser()
   app.use express.methodOverride()
-  app.use express.static("#{__dirname}/public", {maxAge: 5000})
   app.use(express.logger('dev'))
-  app.use(require('connect-less')(
+  app.use lessMiddleware
+    dest: "#{__dirname}/public"
     src: "#{__dirname}/app/assets"
-    dst: "#{__dirname}/tmp/cache/less"
     force: true
     compress: true
-  ))
-  app.use(express.static("#{__dirname}/tmp/cache/less"))
+  app.use(express.static("#{__dirname}/public/"))
   app.use(app.router)
   
 app.configure 'development', ->
