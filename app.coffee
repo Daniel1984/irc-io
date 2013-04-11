@@ -13,6 +13,7 @@ connectCoffeeScript = require('connect-coffee-script')
 require("#{__dirname}/app-io")(io)
 
 app.configure ->
+  app.use express.favicon("#{__dirname}/public/images/favicon.ico")
   app.set 'views', "#{appPath}/views"
   app.set 'view engine', 'jade'
   app.use express.bodyParser()
