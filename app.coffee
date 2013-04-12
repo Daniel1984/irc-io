@@ -24,14 +24,15 @@ app.configure ->
     src: "#{__dirname}/app/assets"
     force: true
     compress: true
+  app.use connectCoffeeScript
+    dest: "#{__dirname}/public"
+    src: "#{__dirname}/app/assets/javascripts/"
+    bare: true
   app.use(express.static("#{__dirname}/public/"))
   app.use(app.router)
   
 app.configure 'development', ->
   app.use(express.errorHandler())
-  app.use connectCoffeeScript
-    src: "#{__dirname}/app/assets/javascripts/"
-    bare: true
   app.use(express.static("#{__dirname}/app/assets/javascripts"))
 
 require("#{appPath}/routers/app-router")(app)
