@@ -9,8 +9,8 @@ define [
         
       render: =>
         @$el.html()
-        @$el.attr(width: 320)
-        @$el.attr(height: 240)
+        @$el.attr(width: 200)
+        @$el.attr(height: 150)
         @$el.css(display: "none")
         @canvas = @$el[0]
         @ctx = @canvas.getContext('2d')

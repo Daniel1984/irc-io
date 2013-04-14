@@ -23,10 +23,10 @@ define(['backbone'], function(Backbone) {
     CanvasView.prototype.render = function() {
       this.$el.html();
       this.$el.attr({
-        width: 320
+        width: 200
       });
       this.$el.attr({
-        height: 240
+        height: 150
       });
       this.$el.css({
         display: "none"

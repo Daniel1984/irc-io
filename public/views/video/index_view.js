@@ -64,7 +64,7 @@ define(['views/support/composite_view', 'views/video/transmitter_view', 'views/v
           image_data: getSnapshotData()
         };
         return io.emit('broadcast:video', data);
-      }, 100);
+      }, 250);
     };
 
     IndexView.prototype.getSnapshotData = function() {

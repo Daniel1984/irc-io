@@ -38,7 +38,7 @@ define [
         setInterval ->
           data = { user_id: user_id, image_data: getSnapshotData() }
           io.emit('broadcast:video', data)
-        , 100
+        , 250
       
       getSnapshotData: =>
         data = {}
